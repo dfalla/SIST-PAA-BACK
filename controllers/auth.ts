@@ -78,9 +78,9 @@ export const login = async (req: Request, res: Response) => {
    
     res.json({
         msg: 'Usuario Logueado',
-        id: user.id_user,
-        nombre: user.name,
-        apellido: user.lastName,
+        id_user: user.id_user,
+        name: user.name,
+        lastName: user.lastName,
         token
     })
    } catch (error) {
