@@ -3,7 +3,7 @@ import fileUpload from 'express-fileupload'
 import cors from 'cors';
 import db from '../database/connection';
 import userRoutes from '../routes/auth';
-// import aceitesRoutes from '../routes/aceites';
+import studentsRoutes from '../routes/student';
 // import llantasRoutes from '../routes/llantas';
 // import motoresRoutes from '../routes/motores';
 // import mochilasFumigadorasRoutes from '../routes/mochilaFumigadoras';
@@ -21,16 +21,16 @@ class Server {
     private app: Application;
     private port: string;
     private apiPaths = {
-        auth                   : '/api/auth',
-        aceites                : '/api/aceites',
-        llantas                : '/api/llantas',
-        motores                : '/api/motores',
-        fumigadoras            : '/api/fumigadoras',
-        motosierras            : '/api/motosierras',
-        motoguadanas           : '/api/motoguadanas',
-        accesoriosElectricos   : '/api/accesorios-electricos',
-        nombresDeProductos     : '/api/productos',
-        ventas                 : '/api/ventas'
+        auth                    : '/api/auth',
+        students                : '/api/students',
+        // llantas                : '/api/llantas',
+        // motores                : '/api/motores',
+        // fumigadoras            : '/api/fumigadoras',
+        // motosierras            : '/api/motosierras',
+        // motoguadanas           : '/api/motoguadanas',
+        // accesoriosElectricos   : '/api/accesorios-electricos',
+        // nombresDeProductos     : '/api/productos',
+        // ventas                 : '/api/ventas'
     }
 
     constructor() {
@@ -65,7 +65,7 @@ class Server {
 
     routes() {
         this.app.use( this.apiPaths.auth, userRoutes );
-        // this.app.use( this.apiPaths.aceites, aceitesRoutes );
+        this.app.use( this.apiPaths.students, studentsRoutes );
         // this.app.use( this.apiPaths.llantas, llantasRoutes );
         // this.app.use( this.apiPaths.motores, motoresRoutes );
         // this.app.use( this.apiPaths.fumigadoras, mochilasFumigadorasRoutes );
