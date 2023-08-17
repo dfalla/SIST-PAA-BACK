@@ -1,14 +1,14 @@
 import { Router } from "express";
-import { createStudent } from '../controllers';
+import { createStudent,getStudents, getStudent, updateStudent, deleteStudent } from '../controllers';
 import { validateJWT, validationFieldsStudent } from '../middlewares'; 
 
 const router = Router();
 router.use( validateJWT );
 
-// router.get('/', getAceites)
-// router.get('/:id_producto', getAceite)
+router.get('/', getStudents)
+router.get('/:id_student', getStudent)
 router.post('/', validationFieldsStudent,   createStudent)
-// router.put('/:id_producto', validarProducto, updateAceite)
-// router.delete('/:id_producto', deleteAceite)
+router.put('/:id_student', validationFieldsStudent, updateStudent)
+router.delete('/:id_student', deleteStudent)
 
 export default router;
