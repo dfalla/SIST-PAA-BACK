@@ -11,6 +11,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    age:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     last_name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -19,8 +23,24 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    dni: {
+    type_document: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    document_number: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    category: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    level:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    amount_payable:{
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     image: {
@@ -32,10 +52,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    // admission_date: {
-    //     type: DataTypes.DATE,
-    //     allowNull: false
-    // }
+    date_admission: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 }, {
     freezeTableName: true
 })

@@ -9,7 +9,18 @@ export const createStudent = async (req: Request, res: Response)=>{
     
     try {
 
-        const {name, last_name, dni, mother_last_name} = req.body;
+        const {
+            name, 
+            age, 
+            last_name, 
+            mother_last_name, 
+            type_document,
+            document_number,
+            level,
+            amount_payable,
+            category,
+            date_admission
+        } = req.body;
 
         const id_student = generateId();
 
@@ -17,32 +28,38 @@ export const createStudent = async (req: Request, res: Response)=>{
         let image_public_id;
 
         try {
-            const existeProducto = await Student.findOne({
+            const existStudent = await Student.findOne({
                 where: {
-                    dni
+                    document_number
                 }
             })
 
-            if(existeProducto){
+            if(existStudent){
                 return res.status(400).json({
-                    msg: `${STUDENT_MESSAGES.msg_exits} ${dni}`
+                    msg: `${STUDENT_MESSAGES.msg_exits} ${document_number}`
                 });
             }
 
             if(req.files === null){
                 await Student.create({
                     id_student,
-                    dni,
-                    name,
-                    last_name,
-                    mother_last_name,
+                    name, 
+                    age, 
+                    last_name, 
+                    mother_last_name, 
+                    type_document,
+                    document_number,
+                    level,
+                    amount_payable,
+                    category,
+                    date_admission
                 })
 
             } else {
 
-                const result = await uploadImage(req.files!.imagen.tempFilePath);
+                const result = await uploadImage(req.files!.image.tempFilePath);
                
-                await fs.remove(req.files!.imagen.tempFilePath);
+                await fs.remove(req.files!.image.tempFilePath);
     
                 image = result.secure_url;
     
@@ -50,10 +67,16 @@ export const createStudent = async (req: Request, res: Response)=>{
 
                 await Student.create({
                     id_student,
-                    dni,
-                    name,
-                    last_name,
-                    mother_last_name,
+                    name, 
+                    age, 
+                    last_name, 
+                    mother_last_name, 
+                    type_document,
+                    document_number,
+                    level,
+                    amount_payable,
+                    category,
+                    date_admission,
                     image,
                     image_public_id,
                     
@@ -117,7 +140,6 @@ export const getStudent = async (req: Request, res: Response)=>{
 export const updateStudent = async (req: Request, res: Response)=>{
     try {
         
-        console.log("req.params", req.params)
         const {id_student} = req.params;
         const { name, last_name, dni, mother_last_name } = req.body;
 
@@ -155,8 +177,8 @@ export const updateStudent = async (req: Request, res: Response)=>{
                 await deleteImage(student.dataValues.image_public_id)
             }
 
-            const result = await uploadImage(req.files!.imagen.tempFilePath);
-            await fs.remove(req.files!.imagen.tempFilePath);
+            const result = await uploadImage(req.files!.image.tempFilePath);
+            await fs.remove(req.files!.image.tempFilePath);
             image = result.secure_url;
             image_public_id = result.public_id;
 

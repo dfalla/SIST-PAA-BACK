@@ -1,3 +1,3 @@
 export * from './generateId';
-export * from './isDni';
+export * from './isDniOrCarnet';
 export * from './jwt';

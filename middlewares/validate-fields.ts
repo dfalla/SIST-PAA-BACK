@@ -1,4 +1,4 @@
-import { isDni } from "../helpers";
+import { customDate, isDniOrCarnet } from "../helpers";
 import { validateFields, check} from "./validationResult";
 
 export const validateFieldsLogin = 
@@ -25,16 +25,34 @@ export const validationFieldsStudent = [
         .isString()
         .trim()
         .notEmpty(),
+    check("age", "Ingrese una edad válida")
+        .isInt({min: 3, max: 90}).withMessage('La edad debe estar entre 3 y 90')
+        .isNumeric()
+        .trim()
+        .notEmpty(),
     check("last_name", "Ingrese un apellido válido")
         .trim()
         .notEmpty(),
     check("mother_last_name", "Ingrese un apellido válido")
         .trim()
         .notEmpty(),
-    check("dni", "Ingrese un número de DNI válido")
+    check("type_document", "Debes seleccionar una opción válida.")
+        .notEmpty(),
+    check("document_number", "Ingrese un número de documento válido")
         .trim()
         .notEmpty()
-        .custom(isDni)
-        .isLength({min:8, max:8}),
-        validateFields,
+        .custom(isDniOrCarnet),
+    check("level", "Debes seleccionar una opción válida.")
+        .notEmpty(),
+    check("amount_payable", "El monto debe ser máximo S/.80")
+        .isInt({max: 80})
+        .isNumeric()
+        .trim()
+        .notEmpty(),
+    check("category", "Debes seleccionar una opción válida.")
+        .notEmpty(),
+    check("date_admission", "El valor debe ser una fecha válida.")
+        .notEmpty()
+        .custom(customDate),
+    validateFields,
 ];
