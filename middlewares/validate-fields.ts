@@ -36,6 +36,9 @@ export const validationFieldsStudent = [
     check("mother_last_name", "Ingrese un apellido válido")
         .trim()
         .notEmpty(),
+    check("address", "Ingrese un dirección válida")
+        .isString()
+        .trim(),
     check("type_document", "Debes seleccionar una opción válida.")
         .notEmpty(),
     check("document_number", "Ingrese un número de documento válido")

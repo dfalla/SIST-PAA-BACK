@@ -23,6 +23,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    address:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     type_document: {
         type: DataTypes.STRING,
         allowNull: false
