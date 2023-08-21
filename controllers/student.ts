@@ -16,6 +16,7 @@ export const createStudent = async (req: Request, res: Response)=>{
             mother_last_name, 
             type_document,
             document_number,
+            phone_number,
             level,
             amount_payable,
             category,
@@ -49,6 +50,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     mother_last_name, 
                     type_document,
                     document_number,
+                    phone_number,
                     level,
                     amount_payable,
                     category,
@@ -73,6 +75,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     mother_last_name, 
                     type_document,
                     document_number,
+                    phone_number,
                     level,
                     amount_payable,
                     category,
@@ -141,7 +144,19 @@ export const updateStudent = async (req: Request, res: Response)=>{
     try {
         
         const {id_student} = req.params;
-        const { name, last_name, dni, mother_last_name } = req.body;
+        const {
+            name, 
+            age, 
+            last_name, 
+            mother_last_name, 
+            type_document,
+            document_number,
+            phone_number,
+            level,
+            amount_payable,
+            category,
+            date_admission
+        } = req.body;
 
 
         let image;
@@ -158,10 +173,17 @@ export const updateStudent = async (req: Request, res: Response)=>{
         if(req.files === null){
             await student.update( 
                 {
-                    name,
-                    last_name,
-                    dni,
-                    mother_last_name,
+                    name, 
+                    age, 
+                    last_name, 
+                    mother_last_name, 
+                    type_document,
+                    document_number,
+                    phone_number,
+                    level,
+                    amount_payable,
+                    category,
+                    date_admission
                 }, 
                 { 
                     where: {
@@ -184,10 +206,17 @@ export const updateStudent = async (req: Request, res: Response)=>{
 
             await student.update( 
                 {
-                    name,
-                    last_name,
-                    dni,
-                    mother_last_name,
+                    name, 
+                    age, 
+                    last_name, 
+                    mother_last_name, 
+                    type_document,
+                    document_number,
+                    phone_number,
+                    level,
+                    amount_payable,
+                    category,
+                    date_admission,
                     image,
                     image_public_id,
                 }, 

@@ -31,6 +31,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    phone_number: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     category: {
         type: DataTypes.STRING,
         allowNull: false

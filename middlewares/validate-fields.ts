@@ -42,6 +42,10 @@ export const validationFieldsStudent = [
         .trim()
         .notEmpty()
         .custom(isDniOrCarnet),
+    check("phone_number", "Ingrese un número de teléfono válido")
+        .isLength({ min: 9, max: 9 })
+        .notEmpty()
+        .matches(/^\d+$/),
     check("level", "Debes seleccionar una opción válida.")
         .notEmpty(),
     check("amount_payable", "El monto debe ser máximo S/.80")
