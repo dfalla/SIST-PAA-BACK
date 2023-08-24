@@ -43,6 +43,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    active: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     level:{
         type: DataTypes.STRING,
         allowNull: false

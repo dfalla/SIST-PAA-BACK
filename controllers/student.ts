@@ -4,6 +4,7 @@ import { deleteImage, uploadImage } from '../libs/cloudinary';
 import fs from 'fs-extra';
 import { generateId } from '../helpers';
 import { STUDENT_MESSAGES } from '../constants';
+import { convertToString } from '../helpers/convertToString';
 
 export const createStudent = async (req: Request, res: Response)=>{
     
@@ -21,10 +22,15 @@ export const createStudent = async (req: Request, res: Response)=>{
             level,
             amount_payable,
             category,
-            date_admission
+            date_admission, 
+            active
         } = req.body;
 
+
+
         const id_student = generateId();
+        // const newActive = convertToString(active)
+
 
         let image;
         let image_public_id;
@@ -56,6 +62,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
+                    active,
                     date_admission
                 })
 
@@ -82,6 +89,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
+                    active,
                     date_admission,
                     image,
                     image_public_id,
@@ -159,6 +167,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
             level,
             amount_payable,
             category,
+            active,
             date_admission
         } = req.body;
 
@@ -188,6 +197,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
+                    active,
                     date_admission
                 }, 
                 { 
@@ -222,6 +232,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
+                    active,
                     date_admission,
                     image,
                     image_public_id,
