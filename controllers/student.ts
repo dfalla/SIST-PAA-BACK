@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import { Student } from '../models'
 import { deleteImage, uploadImage } from '../libs/cloudinary';
 import fs from 'fs-extra';
-import { generateId } from '../helpers';
+import { generateId, getFecha } from '../helpers';
 import { STUDENT_MESSAGES } from '../constants';
 import { convertToString } from '../helpers/convertToString';
 
@@ -29,6 +29,7 @@ export const createStudent = async (req: Request, res: Response)=>{
 
 
         const id_student = generateId();
+        const { times_created } = getFecha();
         // const newActive = convertToString(active)
 
 
@@ -63,7 +64,8 @@ export const createStudent = async (req: Request, res: Response)=>{
                     amount_payable,
                     category,
                     active,
-                    date_admission
+                    date_admission,
+                    times_created
                 })
 
             } else {
@@ -91,6 +93,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     category,
                     active,
                     date_admission,
+                    times_created,
                     image,
                     image_public_id,
                     

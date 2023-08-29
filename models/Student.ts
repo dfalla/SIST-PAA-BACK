@@ -67,6 +67,10 @@ export const Student = db.define('students', {
     date_admission: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    times_created: {
+        type: DataTypes.NUMBER,
+        allowNull: false
     }
 }, {
     freezeTableName: true
