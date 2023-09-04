@@ -52,10 +52,10 @@ export const createStudent = async (req: Request, res: Response)=>{
             if(req.files === null){
                 await Student.create({
                     id_student,
-                    name, 
+                    name:  name.split('')[0].toUpperCase() + name.slice(1), 
                     age, 
-                    last_name, 
-                    mother_last_name, 
+                    last_name: last_name.split('')[0].toUpperCase() + last_name.slice(1), 
+                    mother_last_name: mother_last_name.split('')[0].toUpperCase() + mother_last_name.slice(1), 
                     address,
                     type_document,
                     document_number,
@@ -80,10 +80,10 @@ export const createStudent = async (req: Request, res: Response)=>{
 
                 await Student.create({
                     id_student,
-                    name, 
+                    name: name.split('')[0].toUpperCase() + name.slice(1), 
                     age, 
-                    last_name, 
-                    mother_last_name, 
+                    last_name: last_name.split('')[0].toUpperCase() + last_name.slice(1), 
+                    mother_last_name: mother_last_name.split('')[0].toUpperCase() + mother_last_name.slice(1), 
                     address,
                     type_document,
                     document_number,
@@ -105,7 +105,8 @@ export const createStudent = async (req: Request, res: Response)=>{
             })
 
         } catch (error) {
-            console.log(error)
+            console.log("error", error)
+            return error;
         }
         
     } catch (error) {
@@ -119,7 +120,18 @@ export const createStudent = async (req: Request, res: Response)=>{
 export const getStudents = async (req: Request, res: Response)=>{
 
     try {
-        const students = await Student.findAll();
+        const filters: Record<string, any> = req.query;
+        console.log("filters", filters)
+
+        const whereClause: Record<string, any> = {};
+
+        if (filters.active) whereClause.active = filters.active;
+        if (filters.date_admission) whereClause.date_admission = filters.date_admission;
+        if (filters.category) whereClause.category = filters.category;
+        if (filters.level) whereClause.level = filters.level;
+
+
+        const students = await Student.findAll({where: whereClause});
         return res.json({
             students
         });
