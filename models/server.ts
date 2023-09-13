@@ -4,17 +4,7 @@ import cors from 'cors';
 import db from '../database/connection';
 import userRoutes from '../routes/auth';
 import studentsRoutes from '../routes/student';
-// import llantasRoutes from '../routes/llantas';
-// import motoresRoutes from '../routes/motores';
-// import mochilasFumigadorasRoutes from '../routes/mochilaFumigadoras';
-// import motosierrasRoutes from '../routes/motosierras';
-// import motoguadanasRoutes from '../routes/motoguadanas';
-// import accesoriosElectricosRoutes from '../routes/accesoriosElectricos';
-// import nombresDeProductosRoutes from '../routes/nombreDeProductos';
-// import ventasRoutes from '../routes/ventas'
-
-
-
+import scheduleRoutes from '../routes/schedule';
 
 class Server {
 
@@ -23,14 +13,7 @@ class Server {
     private apiPaths = {
         auth                    : '/api/auth',
         students                : '/api/students',
-        // llantas                : '/api/llantas',
-        // motores                : '/api/motores',
-        // fumigadoras            : '/api/fumigadoras',
-        // motosierras            : '/api/motosierras',
-        // motoguadanas           : '/api/motoguadanas',
-        // accesoriosElectricos   : '/api/accesorios-electricos',
-        // nombresDeProductos     : '/api/productos',
-        // ventas                 : '/api/ventas'
+        schedule                : '/api/schedule',
     }
 
     constructor() {
@@ -66,16 +49,7 @@ class Server {
     routes() {
         this.app.use( this.apiPaths.auth, userRoutes );
         this.app.use( this.apiPaths.students, studentsRoutes );
-        // this.app.use( this.apiPaths.llantas, llantasRoutes );
-        // this.app.use( this.apiPaths.motores, motoresRoutes );
-        // this.app.use( this.apiPaths.fumigadoras, mochilasFumigadorasRoutes );
-        // this.app.use( this.apiPaths.motosierras, motosierrasRoutes );
-        // this.app.use( this.apiPaths.motoguadanas, motoguadanasRoutes );
-        // this.app.use( this.apiPaths.accesoriosElectricos, accesoriosElectricosRoutes );
-        // this.app.use( this.apiPaths.nombresDeProductos, nombresDeProductosRoutes );
-        // this.app.use( this.apiPaths.ventas, ventasRoutes );
-
-
+        this.app.use( this.apiPaths.schedule, scheduleRoutes );
     }
 
     middlewares() {

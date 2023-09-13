@@ -63,3 +63,45 @@ export const validationFieldsStudent = [
         .custom(customDate),
     validateFields,
 ];
+
+
+export const validationFieldsSchedule = [
+    check("hour", "Ingrese una hora válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("monday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("tuesday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("wednesday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("thursday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("friday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    check("saturday", "Ingrese un grupo válido")
+        .isString()
+        .trim()
+        .notEmpty()
+    ,
+    validateFields,
+];
+
+
