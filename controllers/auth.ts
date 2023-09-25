@@ -1,15 +1,30 @@
 import { Request, Response} from 'express';
 import bcrypt from 'bcrypt';
-import { generateId, generateJWT } from '../helpers';
+import fs from 'fs-extra';
+import { generateId, generateJWT, getFecha } from '../helpers';
 import { User } from '../models';
+import { uploadImage } from '../libs/cloudinary';
 
 
 export const register = async (req: Request, res: Response) => {
 
-    const { name, lastName, username, password } = req.body;
-    const id_user = generateId();
+    const { 
+        name,
+        lastName,
+        motherLastName,
+        username,
+        password,
+        active,
+        role
+    } = req.body;
+    
+    const user_id = generateId();
 
-    console.log({ id_user, name, lastName, username, password });
+    const { fecha } = getFecha();
+    console.log("fecha", fecha);
+
+    let image;
+    let image_public_id;
 
     // Validamos si el usuario ya existe en la base de datos
     const user = await User.findOne({ where: { username: username } });
@@ -24,22 +39,60 @@ export const register = async (req: Request, res: Response) => {
     
     try {
         // Guardarmos usuario en la base de datos
-        const newUser = await User.create({
-            id_user,
-            name, 
-            lastName,
-            username,
-            password: hashedPassword
-        })
+        if(req.files === null){
+           const newUser = await User.create({
+                user_id,
+                name,
+                last_name: lastName,
+                mother_last_name: motherLastName,
+                username,
+                password: hashedPassword,
+                active,
+                role,
+                date_created: fecha
+            })
+            
+            const token = await generateJWT({uid: newUser.dataValues.id_user, name: newUser.dataValues.name});
+            
+            res.json({
+                    msg: `Usuario ${username} creado exitosamente!`,
+                    nombre: newUser.dataValues.name,
+                    apellido: newUser.dataValues.lastName,
+                    token
+                })
+        } else {
+            const result = await uploadImage(req.files!.image.tempFilePath);
+               
+            await fs.remove(req.files!.image.tempFilePath);
+            
+            image = result.secure_url;
+    
+            image_public_id = result.public_id;
 
-        const token = await generateJWT({uid: newUser.dataValues.id_user, name: newUser.dataValues.name});
+            const newUser = await User.create({
+                user_id,
+                name,
+                last_name: lastName,
+                mother_last_name: motherLastName,
+                username,
+                password: hashedPassword,
+                image,
+                image_public_id,
+                active: active === 'true' ? true : false,
+                role,
+                date_created: fecha
+            })
 
-        res.json({
-            msg: `Usuario ${username} creado exitosamente!`,
-            nombre: newUser.dataValues.name,
-            apellido: newUser.dataValues.lastName,
-            token
-        })
+            const token = await generateJWT({uid: newUser.dataValues.id_user, name: newUser.dataValues.name});
+            
+            res.json({
+                    msg: `Usuario ${username} creado exitosamente!`,
+                    nombre: newUser.dataValues.name,
+                    apellido: newUser.dataValues.lastName,
+                    token
+                })
+
+        }
     } catch (error) {
         console.log(error)
         res.status(500).json({

@@ -1,4 +1,91 @@
-# MODELADO DE BD - PAA -> (SISTEMA DE ALUMNOS, PAGOS , HORARIOS y PRÉSTAMOS)
+# MODELADO DE BD - PAA -> (SISTEMA DE AUTENTICACIÍN, ALUMNOS, PAGOS , HORARIOS y PRÉSTAMOS)
+
+
+## PAA - SISTEMA DE AUTENTICACIÓN
+
+##### USERS **(ED)**
+- user_id **(PK)**
+- name
+- last_name
+- mother_last_name
+- username
+- password
+- email
+- image
+- image_public_id
+- active
+- times_created
+- times_updated
+
+##### ROLES **(EC)**
+- rol_id **(PK)**
+- name
+- description
+
+
+##### PERMISSIONS **(EC)**
+- permission_id **(PK)**
+- name
+- description
+
+##### ROLES_X_USER **(EP)**
+- rxu_id
+- user_id
+- rol_id
+
+##### PERMISSIONS_X_ROLES **(EP)**
+- pxr_id **(PK)**
+- permission_id **(FK)**
+- rol_id **(FK)**
+
+## RELACIONES
+
+1. ***(USERS)*** have ***(ROLES)***
+1. ***(ROLES)*** have ***(PERMISSIONS)***
+
+## REGLAS DE NEGOCIO
+
+### USERS
+1. Create user 
+1. Read all users
+1. Read one user
+1. Update user
+1. Enable a user
+1. Disable a user
+1. Update user data.
+1. Update a user's password
+1. Delete user
+
+
+### ROLES
+1. Create a role.
+1. Read all the roles.
+1. Read a particular role.
+1. Update a role.
+1. Delete a role.
+
+### PERMISSIONS
+1. Create a permit.
+1. Read all permissions.
+1. Read a particular permit.
+1. Update a permit.
+1. Delete a permit.
+
+
+### ROLES_X_USER
+1. Create an rxu.
+1. Read all rxu.
+1. Read a particular rxu.
+1. Read all rxu of a user.
+1. Delete an rxu.
+
+### PERMISSIONS_X_ROLES
+1. Create a pxr.
+1. Read all pxr.
+1. Read a particular pxr.
+1. Read all pxr of a role.
+1. Delete a pxr.
+
 
 ## PAA - (Alumnos , pagos y horarios)
 
@@ -98,7 +185,7 @@
 1. One **client** can have many ***loans*** (_1 to M)
 
 
-## LÓGICA DE NEGOCIO
+## REGLAS DE NEGOCIO
 
 ### STUDENTS
 1. Create student 
