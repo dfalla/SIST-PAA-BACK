@@ -5,6 +5,7 @@ import db from '../database/connection';
 import userRoutes from '../routes/auth';
 import studentsRoutes from '../routes/student';
 import scheduleRoutes from '../routes/schedule';
+import typesDocument from '../routes/document';
 
 class Server {
 
@@ -14,6 +15,7 @@ class Server {
         auth                    : '/api/auth',
         students                : '/api/students',
         schedule                : '/api/schedule',
+        typesDocument          : '/api/types-document'
     }
 
     constructor() {
@@ -50,6 +52,8 @@ class Server {
         this.app.use( this.apiPaths.auth, userRoutes );
         this.app.use( this.apiPaths.students, studentsRoutes );
         this.app.use( this.apiPaths.schedule, scheduleRoutes );
+        this.app.use( this.apiPaths.typesDocument, typesDocument );
+
     }
 
     middlewares() {

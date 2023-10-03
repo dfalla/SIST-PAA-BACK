@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import db from '../database/connection';
 
 export const Student = db.define('students', {
-    id_student: {
+    student_id: {
         type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
@@ -68,10 +68,6 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    times_created: {
-        type: DataTypes.NUMBER,
-        allowNull: false
-    }
 }, {
     freezeTableName: true
 })

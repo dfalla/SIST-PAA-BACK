@@ -12,25 +12,23 @@ export const createStudent = async (req: Request, res: Response)=>{
 
         const {
             name, 
-            age, 
             last_name, 
             mother_last_name, 
-            address,
             type_document,
             document_number,
-            phone_number,
+            address,
+            age, 
+            date_admission, 
+            category,
             level,
             amount_payable,
-            category,
-            date_admission, 
+            phone_number,
             active
         } = req.body;
 
-
-
-        const id_student = generateId();
-        const { times_created } = getFecha();
-        // const newActive = convertToString(active)
+        const student_id = generateId();
+        const { fecha } = getFecha();
+        const newActive = convertToString(active)
 
 
         let image;
@@ -51,7 +49,7 @@ export const createStudent = async (req: Request, res: Response)=>{
 
             if(req.files === null){
                 await Student.create({
-                    id_student,
+                    student_id,
                     name:  name.split('')[0].toUpperCase() + name.slice(1), 
                     age, 
                     last_name: last_name.split('')[0].toUpperCase() + last_name.slice(1), 
@@ -63,9 +61,8 @@ export const createStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
-                    active,
+                    active: newActive,
                     date_admission,
-                    times_created
                 })
 
             } else {
@@ -79,7 +76,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                 image_public_id = result.public_id;
 
                 await Student.create({
-                    id_student,
+                    student_id,
                     name: name.split('')[0].toUpperCase() + name.slice(1), 
                     age, 
                     last_name: last_name.split('')[0].toUpperCase() + last_name.slice(1), 
@@ -91,9 +88,8 @@ export const createStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
-                    active,
+                    active: newActive,
                     date_admission,
-                    times_created,
                     image,
                     image_public_id,
                     
@@ -186,11 +182,14 @@ export const updateStudent = async (req: Request, res: Response)=>{
             date_admission
         } = req.body;
 
+        console.log("req.files", req.files);
+
 
         let image;
         let image_public_id;
 
         const student = await Student.findByPk(id_student);
+        const newActive = convertToString(active)
 
         if(!student){
             return res.status(404).json({
@@ -212,7 +211,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
-                    active,
+                    active: newActive,
                     date_admission
                 }, 
                 { 
@@ -247,7 +246,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
                     level,
                     amount_payable,
                     category,
-                    active,
+                    active: newActive,
                     date_admission,
                     image,
                     image_public_id,
