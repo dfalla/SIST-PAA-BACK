@@ -104,4 +104,23 @@ export const validationFieldsSchedule = [
     validateFields,
 ];
 
+// export const validateFieldsGroups = [
+//     check("name", "Ingrese una hora válido")
+//         .isString()
+//         .trim()
+//         .notEmpty()
+//     ,
+//     check("last_name", "Ingrese un grupo válido")
+//         .isString()
+//         .trim()
+//         .notEmpty()
+//     ,
+//     check("tuesday", "Ingrese un grupo válido")
+//         .isString()
+//         .trim()
+//         .notEmpty()
+//     ,
+//     validateFields,
+// ]
+
 

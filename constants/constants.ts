@@ -43,3 +43,23 @@ export const SCHEDULE_ATTRIBUTE =  {
         allowNull: true
     },
 }
+
+export const GROUPS_LEVELS = {
+    group_id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+    },
+    student_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    student_last_name: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    student_document_number:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+}

@@ -6,6 +6,13 @@ import userRoutes from '../routes/auth';
 import studentsRoutes from '../routes/student';
 import scheduleRoutes from '../routes/schedule';
 import typesDocument from '../routes/document';
+import G1NBRoutes from '../routes/g1nb';
+import G2NBRoutes from '../routes/g2nb';
+import G3NBRoutes from '../routes/g3nb';
+import G4NBRoutes from '../routes/g4nb';
+import GABRoutes from '../routes/gab';
+import GIRoutes from '../routes/gi';
+
 
 class Server {
 
@@ -15,7 +22,16 @@ class Server {
         auth                    : '/api/auth',
         students                : '/api/students',
         schedule                : '/api/schedule',
-        typesDocument          : '/api/types-document'
+        typesDocument           : '/api/types-document',
+        g1nb                    : '/api/g1nb',
+        g2nb                    : '/api/g2nb',
+        g3nb                    : '/api/g3nb',
+        g4nb                    : '/api/g4nb',
+        gab                     : '/api/gab',
+        gi                      : '/api/gi',
+
+
+
     }
 
     constructor() {
@@ -53,6 +69,12 @@ class Server {
         this.app.use( this.apiPaths.students, studentsRoutes );
         this.app.use( this.apiPaths.schedule, scheduleRoutes );
         this.app.use( this.apiPaths.typesDocument, typesDocument );
+        this.app.use( this.apiPaths.g1nb, G1NBRoutes );
+        this.app.use( this.apiPaths.g2nb, G2NBRoutes );
+        this.app.use( this.apiPaths.g3nb, G3NBRoutes );
+        this.app.use( this.apiPaths.g4nb, G4NBRoutes );
+        this.app.use( this.apiPaths.gab, GABRoutes );
+        this.app.use( this.apiPaths.gi, GIRoutes );
 
     }
 
