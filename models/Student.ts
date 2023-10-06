@@ -51,6 +51,10 @@ export const Student = db.define('students', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    group_level: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     amount_payable:{
         type: DataTypes.INTEGER,
         allowNull: false

@@ -21,6 +21,7 @@ export const createStudent = async (req: Request, res: Response)=>{
             date_admission, 
             category,
             level,
+            group_level,
             amount_payable,
             phone_number,
             active
@@ -29,6 +30,8 @@ export const createStudent = async (req: Request, res: Response)=>{
         const student_id = generateId();
         const { fecha } = getFecha();
         const newActive = convertToString(active)
+
+        console.log("req.body", req.body)
 
 
         let image;
@@ -59,6 +62,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     document_number,
                     phone_number,
                     level,
+                    group_level,
                     amount_payable,
                     category,
                     active: newActive,
@@ -86,6 +90,7 @@ export const createStudent = async (req: Request, res: Response)=>{
                     document_number,
                     phone_number,
                     level,
+                    group_level,
                     amount_payable,
                     category,
                     active: newActive,
@@ -125,6 +130,8 @@ export const getStudents = async (req: Request, res: Response)=>{
         if (filters.date_admission) whereClause.date_admission = filters.date_admission;
         if (filters.category) whereClause.category = filters.category;
         if (filters.level) whereClause.level = filters.level;
+        if (filters.group_level) whereClause.group_level = filters.group_level;
+
 
 
         const students = await Student.findAll({where: whereClause});
