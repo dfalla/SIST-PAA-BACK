@@ -6,9 +6,9 @@ const router = Router();
 router.use( validateJWT );
 
 router.get('/', getSchedules)
-router.get('/:id_schedule', getSchedule)
+router.get('/:schedule_id', getSchedule)
 router.post('/', validationFieldsSchedule,   createSchedule)
-router.put('/:id_schedule', validationFieldsSchedule, updateSchedule)
-router.delete('/:id_schedule', deleteSchedule)
+router.put('/:schedule_id', validationFieldsSchedule, updateSchedule)
+router.delete('/:schedule_id', deleteSchedule)
 
 export default router;

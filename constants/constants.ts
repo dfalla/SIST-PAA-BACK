@@ -9,7 +9,7 @@ export const STUDENT_MESSAGES = {
 }
 
 export const SCHEDULE_ATTRIBUTE =  {
-    id_schedule: {
+    schedule_id: {
         type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,

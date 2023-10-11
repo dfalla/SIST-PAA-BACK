@@ -17,18 +17,7 @@ export const createSchedule = async (req: Request, res: Response)=>{
             saturday,
         } = req.body;
 
-        
-        console.log("schedule", {
-            hour,
-            monday, 
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            saturday,
-        });
-
-        const id_schedule = generateId();
+        const schedule_id = generateId();
 
 
         try {
@@ -46,7 +35,7 @@ export const createSchedule = async (req: Request, res: Response)=>{
 
         
             await SCHEDULE.create({
-                id_schedule,
+                schedule_id,
                 hour,
                 monday, 
                 tuesday,
@@ -92,11 +81,11 @@ export const getSchedules = async (req: Request, res: Response)=>{
 
 export const getSchedule = async (req: Request, res: Response)=>{
     try {
-        const { id_schedule } = req.params;
+        const { schedule_id } = req.params;
         const { schedule } = req.query;
 
-        const SCHEDULE = scheduleConfirm(schedule?.toString()!);
-        const scheduleInBD = await SCHEDULE.findByPk(id_schedule);
+        // const SCHEDULE = scheduleConfirm(schedule?.toString()!);
+        const scheduleInBD = await SCHEDULE.findByPk(schedule_id);
 
         if(!scheduleInBD) {
              return res.status(404).json({
@@ -118,7 +107,7 @@ export const getSchedule = async (req: Request, res: Response)=>{
 export const updateSchedule = async (req: Request, res: Response)=>{
     try {
         
-        const {id_schedule} = req.params;
+        const {schedule_id} = req.params;
         const {
             monday, 
             tuesday,
@@ -128,11 +117,11 @@ export const updateSchedule = async (req: Request, res: Response)=>{
             saturday,
         } = req.body;
 
-        const scheduleInBD = await SCHEDULE.findByPk(id_schedule);
+        const scheduleInBD = await SCHEDULE.findByPk(schedule_id);
 
         if(!scheduleInBD){
             return res.status(404).json({
-                msg: `no existe el horario con el id: ${id_schedule}`,
+                msg: `no existe el horario con el id: ${schedule_id}`,
             });
         }
 
@@ -147,7 +136,7 @@ export const updateSchedule = async (req: Request, res: Response)=>{
             }, 
             { 
                 where: {
-                    id_schedule,
+                    schedule_id,
                 }
             }
         );
@@ -168,12 +157,12 @@ export const updateSchedule = async (req: Request, res: Response)=>{
 export const deleteSchedule = async (req: Request, res: Response)=>{
     try {
 
-        const { id_schedule } = req.params;
+        const { schedule_id } = req.params;
 
-        const scheduleInBD = await SCHEDULE.findByPk( id_schedule );
+        const scheduleInBD = await SCHEDULE.findByPk( schedule_id );
         if ( !scheduleInBD) {
             return res.status(404).json({
-                msg: 'No existe un horario con el id ' + id_schedule
+                msg: 'No existe un horario con el id ' + schedule_id
             });
         }
 
