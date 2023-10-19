@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import { SCHEDULE } from '../models'
 import { generateId } from '../helpers';
+import { MESSAGES } from '../constants';
 
 
 export const createSchedule = async (req: Request, res: Response)=>{
@@ -29,7 +30,7 @@ export const createSchedule = async (req: Request, res: Response)=>{
 
             if(existSchedule){
                 return res.status(400).json({
-                    msg: `La hora ya está cubierta`
+                    msg: `${MESSAGES.schedule.msg_exits}`
                 });
             }
 
@@ -46,7 +47,7 @@ export const createSchedule = async (req: Request, res: Response)=>{
             })
 
             res.json({
-                msg: `Horario registrado correctamente`
+                msg: `${MESSAGES.schedule.created}`
             })
 
         } catch (error) {
@@ -82,14 +83,14 @@ export const getSchedules = async (req: Request, res: Response)=>{
 export const getSchedule = async (req: Request, res: Response)=>{
     try {
         const { schedule_id } = req.params;
-        const { schedule } = req.query;
+        // const { schedule } = req.query;
 
         // const SCHEDULE = scheduleConfirm(schedule?.toString()!);
         const scheduleInBD = await SCHEDULE.findByPk(schedule_id);
 
         if(!scheduleInBD) {
              return res.status(404).json({
-                error: "No existe el alumno"
+                error: "No existe el horario"
             });
         }
 
@@ -121,7 +122,7 @@ export const updateSchedule = async (req: Request, res: Response)=>{
 
         if(!scheduleInBD){
             return res.status(404).json({
-                msg: `no existe el horario con el id: ${schedule_id}`,
+                msg: `${MESSAGES.schedule.msg_no_exits} ${schedule_id}`,
             });
         }
 
@@ -142,7 +143,7 @@ export const updateSchedule = async (req: Request, res: Response)=>{
         );
 
         res.json( {
-            msg: `horario actualizado correctamente`,
+            msg: `${MESSAGES.schedule.updated}`,
             scheduleInBD
         } );
 
@@ -162,14 +163,14 @@ export const deleteSchedule = async (req: Request, res: Response)=>{
         const scheduleInBD = await SCHEDULE.findByPk( schedule_id );
         if ( !scheduleInBD) {
             return res.status(404).json({
-                msg: 'No existe un horario con el id ' + schedule_id
+                msg: `${MESSAGES.schedule.msg_no_exits} ${schedule_id}`
             });
         }
 
         await scheduleInBD.destroy();
 
         res.json({
-            msg: `Horario eliminado correctamente`,
+            msg: `${MESSAGES.schedule.deleted}`,
             scheduleInBD
         });
 

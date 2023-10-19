@@ -98,6 +98,33 @@ export const validationFieldsSchedule = [
     validateFields,
 ];
 
+export const validationFieldsLoans = [
+    check("name", "Ingrese un nombre válido")
+        .isString()
+        .trim()
+        .notEmpty(),
+    check("last_name", "Ingrese un apellido válido")
+        .trim()
+        .notEmpty(),
+    check("phone_number", "Ingrese un número de teléfono válido")
+        .isLength({ min: 9, max: 9 })
+        .notEmpty()
+        .matches(/^\d+$/),
+    check("level", "Debes seleccionar una opción válida.")
+        .notEmpty(),
+    check("amount_payable", "El monto debe ser máximo S/.80")
+        .isInt({max: 80})
+        .isNumeric()
+        .trim()
+        .notEmpty(),
+    check("category", "Debes seleccionar una opción válida.")
+        .notEmpty(),
+    check("date_admission", "El valor debe ser una fecha válida.")
+        .notEmpty()
+        .custom(customDate),
+    validateFields,
+];
+
 // export const validateFieldsGroups = [
 //     check("name", "Ingrese una hora válido")
 //         .isString()

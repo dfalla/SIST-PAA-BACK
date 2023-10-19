@@ -3,7 +3,7 @@ import { Student } from '../models'
 import { deleteImage, uploadImage } from '../libs/cloudinary';
 import fs from 'fs-extra';
 import { generateId, getFecha } from '../helpers';
-import { STUDENT_MESSAGES } from '../constants';
+import { MESSAGES } from '../constants';
 import { convertToString } from '../helpers/convertToString';
 
 export const createStudent = async (req: Request, res: Response)=>{
@@ -46,7 +46,7 @@ export const createStudent = async (req: Request, res: Response)=>{
 
             if(existStudent){
                 return res.status(400).json({
-                    msg: `${STUDENT_MESSAGES.msg_exits} ${document_number}`
+                    msg: `${MESSAGES.student.msg_exits} ${document_number}`
                 });
             }
 
@@ -102,7 +102,7 @@ export const createStudent = async (req: Request, res: Response)=>{
             }
 
             res.json({
-                msg: `${STUDENT_MESSAGES.msg_created_successfully}`
+                msg: `${MESSAGES.student.msg_created_successfully}`
             })
 
         } catch (error) {
@@ -122,7 +122,6 @@ export const getStudents = async (req: Request, res: Response)=>{
 
     try {
         const filters: Record<string, any> = req.query;
-        console.log("filters", filters)
 
         const whereClause: Record<string, any> = {};
 
@@ -200,7 +199,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
 
         if(!student){
             return res.status(404).json({
-                msg: `${STUDENT_MESSAGES.msg_no_exits} ${id_student}`,
+                msg: `${MESSAGES.student.msg_no_exits} ${id_student}`,
             });
         }
 
@@ -228,8 +227,6 @@ export const updateStudent = async (req: Request, res: Response)=>{
                 }
             );
         } else {
-
-            console.log("student.dataValues.image_public_id", student.dataValues.image_public_id)
 
             if(student.dataValues.image_public_id){
                 await deleteImage(student.dataValues.image_public_id)
@@ -267,7 +264,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
         }
 
         res.json( {
-            msg: `${STUDENT_MESSAGES.msg_updated_successfully}`,
+            msg: `${MESSAGES.student.msg_updated_successfully}`,
             student
         } );
 
@@ -296,7 +293,7 @@ export const deleteStudent = async (req: Request, res: Response)=>{
         await deleteImage(student.dataValues.image_public_id)
 
         res.json({
-            msg: `${STUDENT_MESSAGES.msg_deleted_successfully}`,
+            msg: `${MESSAGES.student.msg_deleted_successfully}`,
             student
         });
 

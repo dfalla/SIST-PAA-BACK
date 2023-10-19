@@ -1,11 +1,24 @@
 import { DataTypes } from "sequelize"
 
-export const STUDENT_MESSAGES = {
-    msg_exits: 'Ya existe un alumno registrado con el número de documento:',
-    msg_no_exits: 'No existe un un alumno con el id:',
-    msg_created_successfully: 'Alumno registrado exitosamente',
-    msg_updated_successfully: 'Alumno actualizado exitosamente',
-    msg_deleted_successfully: 'Alumno eliminado correctamente'
+export const MESSAGES = {
+    student: {
+        msg_exits: 'Ya existe un alumno registrado con el número de documento:',
+        msg_no_exits: 'No existe un un alumno con el id:',
+        msg_created_successfully: 'Alumno registrado exitosamente',
+        msg_updated_successfully: 'Alumno actualizado exitosamente',
+        msg_deleted_successfully: 'Alumno eliminado correctamente'
+    },
+    schedule: {
+        msg_exits: 'La hora ya está cubierta',
+        msg_no_exits: 'No existe el horario registrado:',
+        created: 'Horario registrado correctamente',
+        updated: 'Horario actualizado exitosamente',
+        deleted: 'Horario eliminado exitosamente'
+    },
+    loan: {
+        created: 'Préstamo registrado correctamente',
+        deleted: 'Préstamo eliminado correctamente'
+    }
 }
 
 export const SCHEDULE_ATTRIBUTE =  {
