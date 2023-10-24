@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import { LOAN } from '../models'
 import { MESSAGES } from '../constants';
 import { convertToString, generateId } from '../helpers';
+import moment from 'moment';
 
 export const createLoan = async (req: Request, res: Response)=>{
     
@@ -12,10 +13,11 @@ export const createLoan = async (req: Request, res: Response)=>{
             last_name, 
             capital,
             money_delivery_date,
-            payment_date,
             active
         } = req.body;
 
+        const payment_date = moment(money_delivery_date, "DD/MM/YYYY").date()
+        
         try {
             const newActive = convertToString(active)
             const loan_id = generateId();
@@ -24,6 +26,7 @@ export const createLoan = async (req: Request, res: Response)=>{
                 name:  name.split('')[0].toUpperCase() + name.slice(1), 
                 last_name: last_name.split('')[0].toUpperCase() + last_name.slice(1), 
                 capital,
+                interest: capital * 0.2 ,
                 money_delivery_date,
                 payment_date: `${payment_date}/M`,
                 active: newActive
@@ -47,45 +50,44 @@ export const createLoan = async (req: Request, res: Response)=>{
     }
 }
 
-// export const getAllLoans = async (req: Request, res: Response)=>{
+export const getAllLoans = async (req: Request, res: Response)=>{
 
-//     try {
-//         const students = await G1NB.findAll();
-//         return res.json({
-//             students
-//         });
-//     } catch (error) {
-//         console.log(error)
-//         return res.status(500).json({
-//             error: 'Error de servidor hola'
-//         });
-//     }
-// }
+    try {
+        const loans = await LOAN.findAll();
+        return res.json({
+            loans
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            error: 'Error del servidor'
+        });
+    }
+}
 
-// export const deleteLoan = async (req: Request, res: Response)=>{
+export const deleteLoan = async (req: Request, res: Response)=>{
 
-//     try {
+    try {
 
-//         const { id_student } = req.params;
+        const { id_loan } = req.params;
 
-//         const student = await G1NB.findByPk( id_student );
+        const loan = await LOAN.findByPk( id_loan );
 
-//         if ( !student) {
-//             return res.status(404).json({
-//                 msg: 'No existe un priducto con el id ' + id_student
-//             });
-//         }
+        if ( !loan) {
+            return res.status(404).json({
+                msg: 'No existe un préstamo con el id ' + id_loan
+            });
+        }
 
-//         await G1NB.destroy();
+        await loan.destroy();
 
 
-//         res.json({
-//             msg: `${STUDENT_MESSAGES.msg_deleted_successfully}`,
-//             student
-//         });
+        res.json({
+            msg: `${MESSAGES.loan.deleted}`,
+        });
 
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({error: 'Error de servidor'});
-//     }
-// }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error: 'Error de servidor'});
+    }
+}

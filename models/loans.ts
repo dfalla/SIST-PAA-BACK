@@ -19,6 +19,10 @@ export const LOAN  = db.define('loans', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    interest: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     money_delivery_date: {
         type: DataTypes.STRING,
         allowNull: false

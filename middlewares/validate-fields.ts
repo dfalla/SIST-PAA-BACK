@@ -106,22 +106,16 @@ export const validationFieldsLoans = [
     check("last_name", "Ingrese un apellido válido")
         .trim()
         .notEmpty(),
-    check("phone_number", "Ingrese un número de teléfono válido")
-        .isLength({ min: 9, max: 9 })
-        .notEmpty()
-        .matches(/^\d+$/),
-    check("level", "Debes seleccionar una opción válida.")
+    check("capital", "Ingrese un monto válido")
+        .isInt({min: 100})
         .notEmpty(),
-    check("amount_payable", "El monto debe ser máximo S/.80")
-        .isInt({max: 80})
-        .isNumeric()
-        .trim()
-        .notEmpty(),
-    check("category", "Debes seleccionar una opción válida.")
-        .notEmpty(),
-    check("date_admission", "El valor debe ser una fecha válida.")
+    check("money_delivery_date", "El valor debe ser una fecha válida.")
         .notEmpty()
         .custom(customDate),
+    check("active", "Debes seleccionar una opción válida.")
+        .isString()
+        .trim()
+        .notEmpty(),
     validateFields,
 ];
 

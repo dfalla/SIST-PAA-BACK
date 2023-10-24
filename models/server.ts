@@ -12,6 +12,7 @@ import G3NBRoutes from '../routes/g3nb';
 import G4NBRoutes from '../routes/g4nb';
 import GABRoutes from '../routes/gab';
 import GIRoutes from '../routes/gi';
+import LoanRoutes from '../routes/loan';
 
 
 class Server {
@@ -29,9 +30,7 @@ class Server {
         g4nb                    : '/api/g4nb',
         gab                     : '/api/gab',
         gi                      : '/api/gi',
-
-
-
+        loan                    : '/api/loans'
     }
 
     constructor() {
@@ -75,6 +74,8 @@ class Server {
         this.app.use( this.apiPaths.g4nb, G4NBRoutes );
         this.app.use( this.apiPaths.gab, GABRoutes );
         this.app.use( this.apiPaths.gi, GIRoutes );
+        this.app.use( this.apiPaths.loan, LoanRoutes );
+
 
     }
 
