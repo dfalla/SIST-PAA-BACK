@@ -112,10 +112,6 @@ export const validationFieldsLoans = [
     check("money_delivery_date", "El valor debe ser una fecha válida.")
         .notEmpty()
         .custom(customDate),
-    check("active", "Debes seleccionar una opción válida.")
-        .isString()
-        .trim()
-        .notEmpty(),
     validateFields,
 ];
 

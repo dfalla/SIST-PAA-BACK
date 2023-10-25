@@ -13,13 +13,12 @@ export const createLoan = async (req: Request, res: Response)=>{
             last_name, 
             capital,
             money_delivery_date,
-            active
         } = req.body;
 
         const payment_date = moment(money_delivery_date, "DD/MM/YYYY").date()
+        const times_created = moment(money_delivery_date, "DD/MM/YYYY").valueOf()
         
         try {
-            const newActive = convertToString(active)
             const loan_id = generateId();
             await LOAN.create({
                 loan_id,
@@ -29,8 +28,7 @@ export const createLoan = async (req: Request, res: Response)=>{
                 interest: capital * 0.2 ,
                 money_delivery_date,
                 payment_date: `${payment_date}/M`,
-                active: newActive
-
+                times_created
             })
 
             res.json({

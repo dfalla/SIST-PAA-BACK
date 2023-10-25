@@ -31,10 +31,11 @@ export const LOAN  = db.define('loans', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    active: {
-        type: DataTypes.STRING,
+    times_created: {
+        type: DataTypes.NUMBER,
         allowNull: false
-    },
+    }
+    
 }, {
     freezeTableName: true
 })
