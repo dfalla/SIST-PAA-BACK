@@ -31,9 +31,6 @@ export const createStudent = async (req: Request, res: Response)=>{
         const { fecha } = getFecha();
         const newActive = convertToString(active)
 
-        console.log("req.body", req.body)
-
-
         let image;
         let image_public_id;
 
@@ -182,14 +179,12 @@ export const updateStudent = async (req: Request, res: Response)=>{
             document_number,
             phone_number,
             level,
+            group_level,
             amount_payable,
             category,
             active,
             date_admission
         } = req.body;
-
-        console.log("req.files", req.files);
-
 
         let image;
         let image_public_id;
@@ -215,6 +210,7 @@ export const updateStudent = async (req: Request, res: Response)=>{
                     document_number,
                     phone_number,
                     level,
+                    group_level,
                     amount_payable,
                     category,
                     active: newActive,
